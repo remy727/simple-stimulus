@@ -1,0 +1,26 @@
+<div data-controller="product-form">
+  <%= form_with(model: product) do |form| %>
+    <%= form.text_field :name,
+      "data-product-form-target" => "name",
+      "data-action" => "keyup->product-form#countCharacters"
+    %>
+
+    Characters: <span data-product-form-target="counter"><%= product.name.to_s.size %></span>
+
+    <% if product.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+          <% product.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
